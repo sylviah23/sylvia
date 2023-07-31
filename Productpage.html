@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<style>
+
+	body {
+    background-image: url("https://images.unsplash.com/photo-1566041510394-cf7c8fe21800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80");
+    background-blend-mode: lighten;
+    font-family: "Verdana";
+    margin:0;
+	}
+
+	#brand_button, #brandSelect {
+    font-family: "Verdana";
+	}
+
+	h1 {
+    font-family: "Gabriola";
+	}
+
+	table {
+    border-collapse: collapse;
+    margin:10px;
+	}
+
+    .th1, .th2 {
+    font-size: 30px;
+    }
+
+	.th1, .td1 {
+    width:25%;
+	}
+
+	.th2,.td2 {
+    width:50%;
+	}
+
+	tr{
+    border: solid;
+    border-width: 1px;
+	}
+
+    p, form {
+    margin:10px;
+    }
+
+    ul, p, form, #brand_button, #brandSelect, th{
+    font-family:Papyrus;
+    }
+
+    #brand_button {
+    background-color: pink;
+    }
+
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    overflow: hidden;
+    background-color: white;
+    font-size: 20px;
+    }
+
+    li {
+    float: left;
+    }
+
+    li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+    background-color: pink;
+    }
+
+    .active {
+    background-color: pink;
+    }
+	
+</style>
+
+<script>	
+    let br = [];
+    let pr = [];
+    let ingre = [];
+    let li = [];
+
+    window.onload = function() {
+        let userValue = localStorage.getItem("input");
+        d3.csv("https://raw.githubusercontent.com/sylviah23/ulta/main/filtered.csv", function(data) {
+            return {
+                brand: data.Brand,
+                product: data.Product,
+                ingredients: data.Ingredients,
+                link: data.Link
+            }
+        }).then(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                br[i] = data[i].brand;
+                ingre[i] = data[i].ingredients;
+                pr[i] = data[i].product;
+                li[i] = data[i].link;
+            }
+        })
+
+		.then(function() {
+            for (var i=0; i < br.length; i++) {
+                if (br[i].toUpperCase() === userValue) {
+                    if (ingre[i] != "no ingredients") {
+                        d3.select("tbody").insert("tr").html(
+                            '<td class="td1">' + '<p style="font-size:25px;">' + (pr[i]) + '</p>' + '<p>' + li[i] + '</p>' + '</td>' +
+                            '<td class="td2">' + (ingre[i]) + '</td>'
+                        )				
+                    }
+                }
+            }
+		});
+        localStorage.clear();
+    
+    }
+	
+    let userValue = "AG Care"
+	function selectBrand(event) {
+		userValue = event.target.value;
+		userValue = userValue.toUpperCase();
+	}
+
+	
+	function runEnter() {
+		$("#outTable > tbody > tr").remove();
+		for (var i=0; i < br.length; i++) {
+			if (br[i].toUpperCase() === userValue) {
+				if (ingre[i] != "no ingredients") {
+                    d3.select("tbody").insert("tr").html(
+                        '<td class="td1">' + '<p style="font-size:25px;">' + (pr[i]) + '</p>' + '<p>' + li[i] + '</p>' + '</td>' +
+                        '<td class="td2">' + (ingre[i]) + '</td>'
+                    )	
+                }
+			}
+		}
+	};
+	
+</script>
+
+</head>
+<body>
+	<div>
+    <ul>
+        <li><a class="active" href="https://raw.githubusercontent.com/sylviah23/ulta/main/Homepage.html">Home</a></li>
+        <li><a>News</a></li>
+    </ul>
+    <p>
+        Click on the dropdown for brand to show products, ingredients list, and link
+    </p>
+    <form id="brandForm" name="ff">
+        <label>Product</label>
+        <select id="brandSelect" aria-label="State" name="user-input" onchange="selectBrand(event)">
+			<option value="AG Care">AG Care</option>
+			<option value="Alterna">Alterna</option>
+			<option value="American Crew">American Crew</option>
+			<option value="Andrew Fitzsimons">Andrew Fitzsimons</option>
+			<option value="Aquage">Aquage</option>
+			<option value="BREAD BEAUTY SUPPLY">BREAD BEAUTY SUPPLY</option>
+			<option value="Batiste">Batiste</option>
+			<option value="BeautyBio">BeautyBio</option>
+			<option value="Bed Head">Bed Head</option>
+			<option value="Better Not Younger">Better Not Younger</option>
+			<option value="Biolage">Biolage</option>
+			<option value="Biosilk">Biosilk</option>
+			<option value="Bondi Boost">Bondi Boost</option>
+			<option value="boscia">boscia</option>
+			<option value="BosleyMD">BosleyMD</option>
+			<option value="Briogeo">Briogeo</option>
+			<option value="Bumble and bumble">Bumble and bumble</option>
+			<option value="COOLA">COOLA</option>
+			<option value="CURLS">CURLS</option>
+			<option value="Camille Rose">Camille Rose</option>
+			<option value="Carol's Daughter">Carol's Daughter</option>
+			<option value="Chi">Chi</option>
+			<option value="Coco & Eve">Coco & Eve</option>
+			<option value="Conair">Conair</option>
+			<option value="Curlsmith">Curlsmith</option>
+			<option value="DONNA'S RECIPE">DONNA'S RECIPE</option>
+			<option value="Denman">Denman</option>
+			<option value="Derma E">Derma E</option>
+			<option value="Design Essentials">Design Essentials</option>
+			<option value="DevaCurl">DevaCurl</option>
+			<option value="Diane">Diane</option>
+			<option value="Divi">Divi</option>
+			<option value="dpHUE">dpHUE</option>
+			<option value="Drunk Elephant">Drunk Elephant</option>
+			<option value="Drybar">Drybar</option>
+			<option value="Eco Style">Eco Style</option>
+			<option value="Eczema Honey">Eczema Honey</option>
+			<option value="Eva Nyc">Eva Nyc</option>
+			<option value="FEKKAI">FEKKAI</option>
+			<option value="Fairy Tales">Fairy Tales</option>
+			<option value="First Aid Beauty">First Aid Beauty</option>
+			<option value="florence by mills">florence by mills</option>
+			<option value="Grande Cosmetics">Grande Cosmetics</option>
+			<option value="Grow Gorgeous">Grow Gorgeous</option>
+			<option value="HAIRtamin">HAIRtamin</option>
+			<option value="Hask">Hask</option>
+			<option value="IGK">IGK</option>
+			<option value="Innersense Organic Beauty">Innersense Organic Beauty</option>
+			<option value="It's A 10">It's A 10</option>
+			<option value="Jack Black">Jack Black</option>
+			<option value="Joico">Joico</option>
+			<option value="KRISTIN ESS HAIR">KRISTIN ESS HAIR</option>
+			<option value="Kenra Professional">Kenra Professional</option>
+			<option value="Keranique">Keranique</option>
+			<option value="Keratin Complex">Keratin Complex</option>
+			<option value="Kitsch">Kitsch</option>
+			<option value="Klorane">Klorane</option>
+			<option value="Kreyòl Essence">Kreyòl Essence</option>
+			<option value="L'Oréal">L'Oréal</option>
+			<option value="L'ange">L'ange</option>
+			<option value="L'anza">L'anza</option>
+			<option value="Living Proof">Living Proof</option>
+			<option value="LolaVie">LolaVie</option>
+			<option value="MONDAY Haircare">MONDAY Haircare</option>
+			<option value="Madison Reed">Madison Reed</option>
+			<option value="Matrix">Matrix</option>
+			<option value="Maui Moisture">Maui Moisture</option>
+			<option value="Melanin Haircare">Melanin Haircare</option>
+			<option value="Mielle">Mielle</option>
+			<option value="Mixed Chicks">Mixed Chicks</option>
+			<option value="Naturalicious">Naturalicious</option>
+			<option value="NatureLab. Tokyo">NatureLab. Tokyo</option>
+			<option value="Nexxus">Nexxus</option>
+			<option value="Nick Stenson Beauty">Nick Stenson Beauty</option>
+			<option value="Nioxin">Nioxin</option>
+			<option value="Not Your Mother's">Not Your Mother's</option>
+			<option value="OGX">OGX</option>
+			<option value="OLAPLEX">OLAPLEX</option>
+			<option value="OUAI">OUAI</option>
+			<option value="Ouidad">Ouidad</option>
+			<option value="PATTERN">PATTERN</option>
+			<option value="Pacifica">Pacifica</option>
+			<option value="Paul Mitchell">Paul Mitchell</option>
+			<option value="Pravana">Pravana</option>
+			<option value="Pura d'or">Pura d'or</option>
+			<option value="Pureology">Pureology</option>
+			<option value="Qhemet Biologics">Qhemet Biologics</option>
+			<option value="Redken">Redken</option>
+			<option value="Rizos Curls">Rizos Curls</option>
+			<option value="Rusk">Rusk</option>
+			<option value="SEEN">SEEN</option>
+			<option value="SUNDAY RILEY">SUNDAY RILEY</option>
+			<option value="Sebastian">Sebastian</option>
+			<option value="SeroVital">SeroVital</option>
+			<option value="Sexy Hair">Sexy Hair</option>
+			<option value="SheaMoisture">SheaMoisture</option>
+			<option value="Shimmer Lights">Shimmer Lights</option>
+			<option value="Sugarbear">Sugarbear</option>
+			<option value="Sun Bum">Sun Bum</option>
+			<option value="Sunday || Sunday">Sunday || Sunday</option>
+			<option value="Tangle Teezer">Tangle Teezer</option>
+			<option value="tgin">tgin</option>
+			<option value="The Body Shop">The Body Shop</option>
+			<option value="The Mane Choice">The Mane Choice</option>
+			<option value="The Ordinary">The Ordinary</option>
+			<option value="Thick Head">Thick Head</option>
+			<option value="Toppik">Toppik</option>
+			<option value="Verb">Verb</option>
+			<option value="Virtue">Virtue</option>
+			<option value="Viviscal">Viviscal</option>
+			<option value="Voir">Voir</option>
+			<option value="We Are Paradoxx">We Are Paradoxx</option>
+			<option value="Wella">Wella</option>
+			<option value="Wet Brush">Wet Brush</option>
+        </select>
+        <button id="brand_button" type="button" onClick="runEnter()">
+            Find Ingredients!
+        </button>
+    </form>
+    <table id="outTable" class="table" cellpadding="10">
+        <thead>
+            <tr>
+                <th scope="col" class="th1">Product</th> 
+                <th scope="col" class="th2">Ingredients</th>
+            </tr>
+        </thead>
+        <tbody>
+    </table>
+	</div>
+</body>
+
+
+</html>
