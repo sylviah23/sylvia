@@ -1,61 +1,46 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <style>
-	
+
 	body {
+    background-image: url("https://images.unsplash.com/photo-1561434199-57b01d5b67a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80");
+    background-size: cover;
+    background-blend-mode: lighten;
     font-family: "Papyrus";
+    font-size: 20px;
     margin:0;
-	background-image: url("https://images.unsplash.com/photo-1561434199-57b01d5b67a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80");
-	background-repeat: no-repeat;
-	background-size: cover;
-  	background-attachment: fixed;
 	}
 
 	#brand_button, #brandSelect {
     font-family: "Papyrus";
 	}
 
-	table {
-    border-collapse: collapse;
-    margin:10px;
-	font-family: "Helvetica";
-	letter-spacing: 1px;
-	}
-
-    .th1, .th2 {
-    font-size: 30px;
-    }
-
-	.th1, .td1 {
-    width:25%;
-	}
-
-	.th2,.td2 {
-    width:50%;
-	}
-
-	tr{
-    border: solid;
-    border-width: 1px;
-	background-color: white;
-	}
-
-    p, form {
-    margin:10px;
-    }
-
-    ul, p, form, #brand_button, #brandSelect, th{
-    font-family:Papyrus;
-    }
-
-    #brand_button {
+    #brand_button{
     background-color: pink;
+	}
+
+    p,form {
+    text-align: center;
+    }
+
+	h1 {
+    font-family: "Segoe Script";
+	}
+
+    .center {
+    box-sizing: border-box;
+    background-color:white;
+    width:50%;
+    padding: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top:100px;
     }
 
     ul {
@@ -65,7 +50,6 @@
     top: 0;
     overflow: hidden;
     background-color: white;
-    font-size: 20px;
     }
 
     li {
@@ -83,87 +67,49 @@
     li a:hover {
     background-color: pink;
     }
-	
+
+    .active {
+    background-color: pink;
+    }
+
 </style>
 
 <script>	
-    let br = [];
-    let pr = [];
-    let ingre = [];
-    let li = [];
-
-    window.onload = function() {
-        let userValue = localStorage.getItem("input");
-        d3.csv("https://raw.githubusercontent.com/sylviah23/sylviah23.github.io/main/filtered.csv", function(data) {
-            return {
-                brand: data.Brand,
-                product: data.Product,
-                ingredients: data.Ingredients,
-                link: data.Link
-            }
-        }).then(function(data) {
-            for (var i = 0; i < data.length; i++) {
-                br[i] = data[i].brand;
-                ingre[i] = data[i].ingredients;
-                pr[i] = data[i].product;
-                li[i] = data[i].link;
-            }
-        })
-
-		.then(function() {
-            for (var i=0; i < br.length; i++) {
-                if (br[i].toUpperCase() === userValue) {
-                    if (ingre[i] != "no ingredients") {
-                        d3.select("tbody").insert("tr").html(
-                            '<td class="td1">' + '<p style="font-size:25px;">' + (pr[i]) + '</p>' + '<p>' + li[i] + '</p>' + '</td>' +
-                            '<td class="td2">' + (ingre[i]) + '</td>'
-                        )				
-                    }
-                }
-            }
-		});
-        localStorage.clear();
-    
-    }
 	
-    let userValue = "AG Care"
+    let userValue = "AG CARE";
+
 	function selectBrand(event) {
-		userValue = event.target.value;
-		userValue = userValue.toUpperCase();
+		var userValue = event.target.value;
+		var userValue = userValue.toUpperCase();
 	}
 
-	
 	function runEnter() {
-		$("#outTable > tbody > tr").remove();
-		for (var i=0; i < br.length; i++) {
-			if (br[i].toUpperCase() === userValue) {
-				if (ingre[i] != "no ingredients") {
-                    d3.select("tbody").insert("tr").html(
-                        '<td class="td1">' + '<p style="font-size:25px;">' + (pr[i]) + '</p>' + '<p>' + li[i] + '</p>' + '</td>' +
-                        '<td class="td2">' + (ingre[i]) + '</td>'
-                    )	
-                }
-			}
-		}
+
+        var bra = document.getElementById('brandSelect').value;
+        bra = bra.toUpperCase();
+
+        localStorage.setItem("input", bra);
+        window.location.href="products.html"
 	};
 	
+
 </script>
 
 </head>
 <body>
     <ul>
-        <li><a href="https://sylviah23.github.io/Homepage.html">Home</a></li>
-        <li><a href="https://sylviah23.github.io/Stats.html">Stats</a></li>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="stats.html">Stats</a></li>
     </ul>
+    <div class="center">
     <p>
         Click on the dropdown for brand to show products, ingredients list, and link
     </p>
     <form id="brandForm" name="ff">
-        <label>Product</label>
+        <label>Brand</label>
         <select id="brandSelect" aria-label="State" name="user-input" onchange="selectBrand(event)">
 			<option value="AG Care">AG Care</option>
 			<option value="Alterna">Alterna</option>
-			<option value="American Crew">American Crew</option>
 			<option value="Andrew Fitzsimons">Andrew Fitzsimons</option>
 			<option value="Aquage">Aquage</option>
 			<option value="BREAD BEAUTY SUPPLY">BREAD BEAUTY SUPPLY</option>
@@ -184,14 +130,11 @@
 			<option value="Carol's Daughter">Carol's Daughter</option>
 			<option value="Chi">Chi</option>
 			<option value="Coco & Eve">Coco & Eve</option>
-			<option value="Conair">Conair</option>
 			<option value="Curlsmith">Curlsmith</option>
 			<option value="DONNA'S RECIPE">DONNA'S RECIPE</option>
-			<option value="Denman">Denman</option>
 			<option value="Derma E">Derma E</option>
 			<option value="Design Essentials">Design Essentials</option>
 			<option value="DevaCurl">DevaCurl</option>
-			<option value="Diane">Diane</option>
 			<option value="Divi">Divi</option>
 			<option value="dpHUE">dpHUE</option>
 			<option value="Drunk Elephant">Drunk Elephant</option>
@@ -200,7 +143,6 @@
 			<option value="Eczema Honey">Eczema Honey</option>
 			<option value="Eva Nyc">Eva Nyc</option>
 			<option value="FEKKAI">FEKKAI</option>
-			<option value="Fairy Tales">Fairy Tales</option>
 			<option value="First Aid Beauty">First Aid Beauty</option>
 			<option value="florence by mills">florence by mills</option>
 			<option value="Grande Cosmetics">Grande Cosmetics</option>
@@ -216,7 +158,6 @@
 			<option value="Kenra Professional">Kenra Professional</option>
 			<option value="Keranique">Keranique</option>
 			<option value="Keratin Complex">Keratin Complex</option>
-			<option value="Kitsch">Kitsch</option>
 			<option value="Klorane">Klorane</option>
 			<option value="Kreyòl Essence">Kreyòl Essence</option>
 			<option value="L'Oréal">L'Oréal</option>
@@ -254,14 +195,12 @@
 			<option value="SEEN">SEEN</option>
 			<option value="SUNDAY RILEY">SUNDAY RILEY</option>
 			<option value="Sebastian">Sebastian</option>
-			<option value="SeroVital">SeroVital</option>
 			<option value="Sexy Hair">Sexy Hair</option>
 			<option value="SheaMoisture">SheaMoisture</option>
 			<option value="Shimmer Lights">Shimmer Lights</option>
 			<option value="Sugarbear">Sugarbear</option>
 			<option value="Sun Bum">Sun Bum</option>
 			<option value="Sunday || Sunday">Sunday || Sunday</option>
-			<option value="Tangle Teezer">Tangle Teezer</option>
 			<option value="tgin">tgin</option>
 			<option value="The Body Shop">The Body Shop</option>
 			<option value="The Mane Choice">The Mane Choice</option>
@@ -274,21 +213,14 @@
 			<option value="Voir">Voir</option>
 			<option value="We Are Paradoxx">We Are Paradoxx</option>
 			<option value="Wella">Wella</option>
-			<option value="Wet Brush">Wet Brush</option>
         </select>
-        <button id="brand_button" type="button" onClick="runEnter()">
-            Find Ingredients!
-        </button>
+        <a>
+            <button id="brand_button" type="button" onClick="runEnter()" >
+                Find Ingredients!
+            </button>
+        </a>
     </form>
-    <table id="outTable" class="table" cellpadding="10">
-        <thead>
-            <tr>
-                <th scope="col" class="th1">Product</th> 
-                <th scope="col" class="th2">Ingredients</th>
-            </tr>
-        </thead>
-        <tbody>
-    </table>
+	</div>
 </body>
 
 

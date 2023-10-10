@@ -1,46 +1,61 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <style>
-
+	
 	body {
-    background-image: url("https://images.unsplash.com/photo-1561434199-57b01d5b67a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80");
-    background-size: cover;
-    background-blend-mode: lighten;
     font-family: "Papyrus";
-    font-size: 20px;
     margin:0;
+	background-image: url("https://images.unsplash.com/photo-1561434199-57b01d5b67a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80");
+	background-repeat: no-repeat;
+	background-size: cover;
+  	background-attachment: fixed;
 	}
 
 	#brand_button, #brandSelect {
     font-family: "Papyrus";
 	}
 
-    #brand_button{
-    background-color: pink;
+	table {
+    border-collapse: collapse;
+    margin:10px;
+	font-family: "Helvetica";
+	letter-spacing: 1px;
 	}
 
-    p,form {
-    text-align: center;
+    .th1, .th2 {
+    font-size: 30px;
     }
 
-	h1 {
-    font-family: "Segoe Script";
+	.th1, .td1 {
+    width:25%;
 	}
 
-    .center {
-    box-sizing: border-box;
-    background-color:white;
+	.th2,.td2 {
     width:50%;
-    padding: 20px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top:100px;
+	}
+
+	tr{
+    border: solid;
+    border-width: 1px;
+	background-color: white;
+	}
+
+    p, form {
+    margin:10px;
+    }
+
+    ul, p, form, #brand_button, #brandSelect, th{
+    font-family:Papyrus;
+    }
+
+    #brand_button {
+    background-color: pink;
     }
 
     ul {
@@ -50,6 +65,7 @@
     top: 0;
     overflow: hidden;
     background-color: white;
+    font-size: 20px;
     }
 
     li {
@@ -67,46 +83,83 @@
     li a:hover {
     background-color: pink;
     }
-
-    .active {
-    background-color: pink;
-    }
-
+	
 </style>
 
 <script>	
-	
-    let userValue = "AG CARE";
+    let br = [];
+    let pr = [];
+    let ingre = [];
+    let li = [];
 
+    window.onload = function() {
+        let userValue = localStorage.getItem("input");
+        d3.csv("https://raw.githubusercontent.com/sylviah23/sylviah23.github.io/main/filtered.csv", function(data) {
+            return {
+                brand: data.Brand,
+                product: data.Product,
+                ingredients: data.Ingredients,
+                link: data.Link
+            }
+        }).then(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                br[i] = data[i].brand;
+                ingre[i] = data[i].ingredients;
+                pr[i] = data[i].product;
+                li[i] = data[i].link;
+            }
+        })
+
+		.then(function() {
+            for (var i=0; i < br.length; i++) {
+                if (br[i].toUpperCase() === userValue) {
+                    if (ingre[i] != "no ingredients") {
+                        d3.select("tbody").insert("tr").html(
+                            '<td class="td1">' + '<p style="font-size:25px;">' + (pr[i]) + '</p>' + '<p>' + li[i] + '</p>' + '</td>' +
+                            '<td class="td2">' + (ingre[i]) + '</td>'
+                        )				
+                    }
+                }
+            }
+		});
+        localStorage.clear();
+    
+    }
+	
+    let userValue = "AG Care"
 	function selectBrand(event) {
-		var userValue = event.target.value;
-		var userValue = userValue.toUpperCase();
+		userValue = event.target.value;
+		userValue = userValue.toUpperCase();
 	}
 
+	
 	function runEnter() {
-
-        var bra = document.getElementById('brandSelect').value;
-        bra = bra.toUpperCase();
-
-        localStorage.setItem("input", bra);
-        window.location.href="https://sylviah23.github.io/Productpage.html"
+		$("#outTable > tbody > tr").remove();
+		for (var i=0; i < br.length; i++) {
+			if (br[i].toUpperCase() === userValue) {
+				if (ingre[i] != "no ingredients") {
+                    d3.select("tbody").insert("tr").html(
+                        '<td class="td1">' + '<p style="font-size:25px;">' + (pr[i]) + '</p>' + '<p>' + li[i] + '</p>' + '</td>' +
+                        '<td class="td2">' + (ingre[i]) + '</td>'
+                    )	
+                }
+			}
+		}
 	};
 	
-
 </script>
 
 </head>
 <body>
     <ul>
-        <li><a class="active" href="https://sylviah23.github.io/Homepage.html">Home</a></li>
-        <li><a href="https://sylviah23.github.io/Stats.html">Stats</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="stats.html">Stats</a></li>
     </ul>
-    <div class="center">
     <p>
         Click on the dropdown for brand to show products, ingredients list, and link
     </p>
     <form id="brandForm" name="ff">
-        <label>Brand</label>
+        <label>Product</label>
         <select id="brandSelect" aria-label="State" name="user-input" onchange="selectBrand(event)">
 			<option value="AG Care">AG Care</option>
 			<option value="Alterna">Alterna</option>
@@ -214,13 +267,19 @@
 			<option value="We Are Paradoxx">We Are Paradoxx</option>
 			<option value="Wella">Wella</option>
         </select>
-        <a>
-            <button id="brand_button" type="button" onClick="runEnter()" >
-                Find Ingredients!
-            </button>
-        </a>
+        <button id="brand_button" type="button" onClick="runEnter()">
+            Find Ingredients!
+        </button>
     </form>
-	</div>
+    <table id="outTable" class="table" cellpadding="10">
+        <thead>
+            <tr>
+                <th scope="col" class="th1">Product</th> 
+                <th scope="col" class="th2">Ingredients</th>
+            </tr>
+        </thead>
+        <tbody>
+    </table>
 </body>
 
 
