@@ -18,7 +18,7 @@
 
     window.onload = function() {
         let userValue = localStorage.getItem("input");
-        d3.csv("https://raw.githubusercontent.com/sylviah23/sylviah23.github.io/main/filtered.csv", function(data) {
+        d3.csv("filtered.csv", function(data) {
             return {
                 brand: data.Brand,
                 product: data.Product,

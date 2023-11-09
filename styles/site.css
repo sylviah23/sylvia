@@ -1,11 +1,19 @@
 /*home page*/
 #all-home {
-    background-image: url("https://images.unsplash.com/photo-1561434199-57b01d5b67a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80");
-    background-size: cover;
-    background-blend-mode: lighten;
+    background-image: url("../images/background.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+  	background-attachment: fixed;
     font-family: "Papyrus";
     font-size: 20px;
     margin:0;
+}
+
+#home-background {
+    position: absolute; 
+    z-index: 2;
+    width: 100%;
+    height: 100%;
 }
 
 #brand_button, #brandSelect {
@@ -25,23 +33,27 @@ h1 {
 }
 
 .center {
-    box-sizing: border-box;
-    background-color:white;
-    width:50%;
-    padding: 20px;
-    position: relative;
+    position: relative; 
+    top: -10px; 
+    z-index: 3;
+
     left: 50%;
     transform: translateX(-50%);
     margin-top:100px;
 	border-radius: 10px;
+
+    box-sizing: border-box;
+    background-color:white;
+    width:50%;
+    padding: 20px;
+
 }
 
 
 /*products page*/
 #all-products {
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 	margin:0;
-	background-image: url("https://images.unsplash.com/photo-1561434199-57b01d5b67a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80");
+	background-image: url("../images/background.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
   	background-attachment: fixed;
@@ -58,7 +70,7 @@ th {
 table {
     border-collapse: collapse;
     margin:10px;
-    font-family: "Helvetica";
+    font-family: Garamond, serif;
     letter-spacing: 1px;
 }
 
@@ -93,7 +105,7 @@ tr{
 #all-stats {
     font-family: "Papyrus";
     margin:0;
-	background-image: url("https://images.unsplash.com/photo-1561434199-57b01d5b67a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80");
+	background-image: url("../images/background.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
   	background-attachment: fixed;
@@ -109,6 +121,8 @@ tr{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width:65%;
+    height: auto;
 }
 
 
