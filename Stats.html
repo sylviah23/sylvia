@@ -4,24 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet"
-    type="text/css"
-    href="styles/site.css">
+<link rel="stylesheet" type="text/css" href="styles/site.css">
 
-<style>
-
-</style>
 </head>
 
 <body id="all-stats">
     <ul>
-        <li><a href="Homepage.html">Home</a></li>
-        <li><a class="active" href="Stats.html">Stats</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="stats.html">Stats</a></li>
     </ul>
-    <h1 id="stats-header">
-        105 Brands. 698 Products.
-    </h1>
+
+    <div id="stats-content">
+
+    <div class="counter" id="counters1">
+        <div id="counter-products" class="counter-number"></div>
+        <h2>Products</h2>
+    </div>
+    
+    <div class="graphs1">
     <img id="stats-graph" src="images/ingredients-rank-graph.png">
+    <img id="pie-chart" src="images/category-pie-chart.png">
+    </div>
+
+
+    <div class="counter" id="counters2">
+        <div id="counter-brands" class="counter-number"></div>
+        <h2>Brands</h2>
+    </div>
+
+    <img id="word-bubble" src="images/brands-text-graph.png">
+    
+    </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="/scripts/stats-counter.js"></script>
+<script src="/scripts/stats-graph.js"></script>
 
 </html>

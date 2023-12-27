@@ -3,86 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-<link rel="stylesheet"
-    type="text/css"
-    href="styles/site.css">
-
-<script>	
-    let br = [];
-    let pr = [];
-    let ingre = [];
-    let li = [];
-
-    window.onload = function() {
-        let userValue = localStorage.getItem("input");
-        d3.csv("filtered.csv", function(data) {
-            return {
-                brand: data.Brand,
-                product: data.Product,
-                ingredients: data.Ingredients,
-                link: data.Link
-            }
-        }).then(function(data) {
-            for (var i = 0; i < data.length; i++) {
-                br[i] = data[i].brand;
-                ingre[i] = data[i].ingredients;
-                pr[i] = data[i].product;
-                li[i] = data[i].link;
-            }
-        })
-
-		.then(function() {
-            for (var i=0; i < br.length; i++) {
-                if (br[i].toUpperCase() === userValue) {
-                    if (ingre[i] != "no ingredients") {
-                        d3.select("tbody").insert("tr").html(
-                            '<td class="td1">' + '<p style="font-size:25px;">' + (pr[i]) + '</p>' + '<p>' + li[i] + '</p>' + '</td>' +
-                            '<td class="td2">' + (ingre[i]) + '</td>'
-                        )				
-                    }
-                }
-            }
-		});
-        localStorage.clear();
-    
-    }
-	
-    let userValue = "AG Care"
-	function selectBrand(event) {
-		userValue = event.target.value;
-		userValue = userValue.toUpperCase();
-	}
-	
-	function runEnter() {
-		$("#outTable > tbody > tr").remove();
-		for (var i=0; i < br.length; i++) {
-			if (br[i].toUpperCase() === userValue) {
-				if (ingre[i] != "no ingredients") {
-                    d3.select("tbody").insert("tr").html(
-                        '<td class="td1">' + '<p style="font-size:25px;">' + (pr[i]) + '</p>' + '<p>' + li[i] + '</p>' + '</td>' +
-                        '<td class="td2">' + (ingre[i]) + '</td>'
-                    )	
-                }
-			}
-		}
-	};
-	
-</script>
+<link rel="stylesheet" type="text/css" href="styles/site.css">
 
 </head>
 <body id="all-products">
     <ul>
-        <li><a href="Homepage.html">Home</a></li>
-        <li><a href="Stats.html">Stats</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="stats.html">Stats</a></li>
     </ul>
     <p class="products-directions">
         Click on the dropdown for brand to show products, ingredients list, and link
     </p>
     <form id="brandForm-products" name="ff">
-        <label>Product</label>
+        <label>Brand: </label>
         <select id="brandSelect-products" aria-label="State" name="user-input" onchange="selectBrand(event)">
 			<option value="AG Care">AG Care</option>
 			<option value="Alterna">Alterna</option>
@@ -205,5 +139,7 @@
     </table>
 </body>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="/scripts/products.js"></script>
 </html>

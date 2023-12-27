@@ -21,7 +21,7 @@
 }
 
 #brand_button{
-    background-color: pink;
+    background-color: rgba(65, 138, 142, 0.091);
 }
 
 .home-directions,#brandForm-home {
@@ -94,7 +94,7 @@ tr{
 }
 
 #brand_find {
-    background-color: pink;
+    background-color: rgba(65, 138, 142, 0.091);
 }
 
 .products-directions, #brandForm-products {
@@ -111,20 +111,64 @@ tr{
   	background-attachment: fixed;
 }
 
-#stats-header {
-    text-align: center;
-    margin:10px;
-    font-size:50px;
+#stats-content {
+    background-color: white;
+    
+}
+
+#word-bubble {
+    display: block;
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+}
+
+.graphs1 {
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-left: 20px;
 }
 
 #stats-graph {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width:65%;
+    width: 50%;
     height: auto;
 }
 
+#pie-chart {
+    display: block;
+    width: 50%;
+    height: auto;
+}
+
+.counter-number{
+    font-family: Garamond, serif;
+    font-size: 50px;
+}
+
+.counter-number {
+    font-family: Garamond, serif;
+    font-size: 50px;
+}
+h2 {
+    display: block;
+    font-family: Garamond, serif;
+    transform: translateY(-80%);
+    font-size: 30px;
+}
+
+.counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(65, 138, 142, 0.053);
+    margin-top: 30px;
+    padding-top: 30px;
+}
 
 /*nav bar*/
 ul {
@@ -150,9 +194,9 @@ li a {
 }
 
 li a:hover {
-    background-color: pink;
+    background-color: rgba(65, 138, 142, 0.091);
 }
 
 .active {
-    background-color: pink;
+    background-color: rgba(65, 138, 142, 0.091);
 }

@@ -5,44 +5,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet"
-    type="text/css"
-    href="styles/site.css">
-
-<script>	
-	
-    let userValue = "AG CARE";
-
-	function selectBrand(event) {
-		var userValue = event.target.value;
-		var userValue = userValue.toUpperCase();
-	}
-
-	function runEnter() {
-
-        var bra = document.getElementById('brandSelect').value;
-        bra = bra.toUpperCase();
-
-        localStorage.setItem("input", bra);
-        window.location.href="Productspage.html"
-	};
-	
-
-</script>
+<link rel="stylesheet" type="text/css" href="styles/site.css">
 
 </head>
 
 <body id="all-home">
     <ul>
-        <li><a class="active" href="Homepage.html">Home</a></li>
-        <li><a href="Stats.html">Stats</a></li>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="stats.html">Stats</a></li>
     </ul>
     <div class="center">
     <p class="home-directions">
         Click on the dropdown for brand to show products, ingredients list, and link
     </p>
     <form id="brandForm-home" name="ff">
-        <label>Brand</label>
+        <label>Brand: </label>
         <select id="brandSelect" aria-label="State" name="user-input" onchange="selectBrand(event)">
 			<option value="AG Care">AG Care</option>
 			<option value="Alterna">Alterna</option>
@@ -159,4 +136,5 @@
 	</div>
 </body>
 
+<script src="/scripts/home.js"></script>
 </html>
