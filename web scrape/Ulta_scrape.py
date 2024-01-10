@@ -6,7 +6,7 @@ import pandas as pd
 
 def get_brand(branddriver):
     """
-    Returns a list of strings with all the brand names of hair products. 'branddriver' is the ChromeDriver corresponding to https://www.ulta.com/shop/hair/treatment
+    Returns a list of strings of all the brand names of hair products. 'branddriver' is the ChromeDriver corresponding to https://www.ulta.com/shop/hair/treatment
     """
     card = branddriver.find_elements(By.XPATH,'//span[@class="ProductCard__brand"]')
     list=[]
@@ -17,7 +17,7 @@ def get_brand(branddriver):
     
 def get_name(namedriver):
     """
-    Returns a list of strings with all the product names of hair products. 'namedriver' is the ChromeDriver corresponding to https://www.ulta.com/shop/hair/treatment
+    Returns a list of strings of all the product names of hair products. 'namedriver' is the ChromeDriver corresponding to https://www.ulta.com/shop/hair/treatment
     """
     card = namedriver.find_elements(By.XPATH,'//span[@class="ProductCard__product"]')
     list=[]
@@ -28,7 +28,7 @@ def get_name(namedriver):
 
 def get_links(linkdriver):
     """
-    Returns a list of strings with all the links of hair products. 'linkdriver' is the ChromeDriver corresponding to https://www.ulta.com/shop/hair/treatment
+    Returns a list of strings of all the links of hair products. 'linkdriver' is the ChromeDriver corresponding to https://www.ulta.com/shop/hair/treatment
     """
     card = linkdriver.find_elements(By.XPATH,'//div[@class="ProductCard"]')
     list=[]
@@ -40,7 +40,7 @@ def get_links(linkdriver):
 
 def get_ingredients(ingredientsdriver):
     """
-    Returns a string of the ingredients associated with the product that ChromeDriver 'ingredientsdriver' corresponds with. If no ingredients are found return "no ingredients"
+    Returns a string of the ingredients associated with the product at ChromeDriver 'ingredientsdriver'. If no ingredients are found return "no ingredients"
     """
     try:
         ingredientsdriver.find_element(By.XPATH,'//*[@id="Ingredients"]')
